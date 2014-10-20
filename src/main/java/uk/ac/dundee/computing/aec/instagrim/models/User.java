@@ -37,13 +37,27 @@ public class User {
             return false;
         }
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("insert into userprofiles (login,password) Values(?,?)");
+        
+        /** PreparedStatement prepState = session.prepare("select * from userprofiles where login = (username) Value(?)");
+        BoundStatement boundState = new BoundStatement(prepState);
+        session.execute(boundState.bind(username));
+        
+        if (true)
+        {
+            System.out.println("Print 'Error: Username taken. Please Choose another name");
+        }
+        else
+        * */
+        
+        {
+            PreparedStatement ps = session.prepare("insert into userprofiles (login,Password) Values(?,?)");
        
-        BoundStatement boundStatement = new BoundStatement(ps);
-        session.execute( // this is where the query is executed
+            BoundStatement boundStatement = new BoundStatement(ps);
+            session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
                         username,EncodedPassword));
-        //We are assuming this always works.  Also a transaction would be good here !
+            //We are assuming this always works.  Also a transaction would be good here !
+        }
         
         return true;
     }

@@ -26,7 +26,7 @@
             <h3>File Upload</h3>
             <form method="POST" enctype="multipart/form-data" action="Image">
                 File to upload: <input type="file" accept="image/*" name="upfile"><br/>
-
+                <%-- By using the accept keyword, we allow only files with an image type file extension to be uploaded.--%>
                 <br/>
                 <input type="submit" value="Press"> to upload the file!
             </form>
