@@ -19,13 +19,23 @@
             <h1>InstaGrim ! </h1>
             <h2>Your world in Black and White</h2>
         </header>
+        
+        <%      // prints a message to screen telling the user they have successfully logged in
+                String message = (String) request.getAttribute("msg");
+                if (message==null)
+                {
+                     // if message is null, i.e. no user logged in yet
+                } else {
+                    out.println("You are logged in as: " + message); // show user logged in
+                }
+            %>
+        
         <nav>
             <ul>
 
                
                 <li><a href="upload.jsp">Upload</a></li>
-                    <%
-                        
+                    <% // this code checks the loggedIn state to determine which navigation links to display.    
                         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
                         if (lg != null) {
                             String UserName = lg.getUsername();
@@ -48,7 +58,7 @@
         <footer>
             <ul>
                 <li class="footer"><a href="/Instagrim">Home</a></li>
-                <li>&COPY; Peter Bennington</li>
+                <li>&COPY; Andy Cobley</li>
             </ul>
         </footer>
     </body>

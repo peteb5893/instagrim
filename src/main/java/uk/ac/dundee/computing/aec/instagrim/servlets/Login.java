@@ -9,6 +9,7 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -51,6 +52,13 @@ public class Login extends HttpServlet {
         String username=request.getParameter("username");
         String password=request.getParameter("password");
         
+        
+        //below is an if statement that will check the user has not left either username or password blank
+        if (username.equals("")||password.equals(""))
+        {
+            loginError(request ,response); // display error message
+        }
+        
         User us=new User();
         us.setCluster(cluster);
         boolean isValid=us.IsValidUser(username, password);
@@ -60,11 +68,10 @@ public class Login extends HttpServlet {
             LoggedIn lg= new LoggedIn();
             lg.setLogedin();
             lg.setUsername(username);
-            //request.setAttribute("LoggedIn", lg);
-            
             session.setAttribute("LoggedIn", lg);
             System.out.println("Session in servlet "+session);
             RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
+            request.setAttribute("msg",username); //this should pass the username to index.jsp and allow it to print to screen.
 	    rd.forward(request,response);
             
         }else{
@@ -83,4 +90,12 @@ public class Login extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    //method that shows an error message on the login page when username or password is entered incorrectly or left blank
+private void loginError(HttpServletRequest request, HttpServletResponse reponse)
+        throws ServletException, IOException {
+    String loginErrorMessage = "Error: Username or Password have not been entered. Please try again.";
+    RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+    request.setAttribute("msg",loginErrorMessage); // here we set the "msg" attribute to have value of loginErrorMessage
+    rd.forward(request, reponse);
+}
 }

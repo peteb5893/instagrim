@@ -26,8 +26,8 @@ public class User {
     public User(){
         
     }
-    
-    public boolean RegisterUser(String username, String Password){
+    // this boolean method will return true if the user is added to the database
+    public boolean RegisterUser(String username, String Password, String address, String email, String first_name, String last_name){
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;
         try {
@@ -37,30 +37,37 @@ public class User {
             return false;
         }
         Session session = cluster.connect("instagrim");
-        
-        /** PreparedStatement prepState = session.prepare("select * from userprofiles where login = (username) Value(?)");
-        BoundStatement boundState = new BoundStatement(prepState);
-        session.execute(boundState.bind(username));
-        
-        if (true)
-        {
-            System.out.println("Print 'Error: Username taken. Please Choose another name");
-        }
-        else
-        * */
-        
-        {
-            PreparedStatement ps = session.prepare("insert into userprofiles (login,Password) Values(?,?)");
+
+            PreparedStatement ps = session.prepare("insert into userprofiles (login, addresses, email, first_name, last_name,Password) Values(?,?,?,?,?,?)");
        
             BoundStatement boundStatement = new BoundStatement(ps);
             session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        username,EncodedPassword));
+                        username, address, email, first_name, last_name,EncodedPassword));
             //We are assuming this always works.  Also a transaction would be good here !
-        }
         
         return true;
     }
+  
+    /**this boolean method will check the if the username trying to be registered is already taken
+    public boolean usernameTaken(String username){
+        Session session = cluster.connect("instagrim");     
+        PreparedStatement prepState = session.prepare("select * from userprofiles where login =?");
+        BoundStatement boundState = new BoundStatement(prepState);
+        ResultSet rs = null;
+        rs = session.execute(boundState.bind(username));
+        if (rs.isExhausted()){
+            System.out.println("test");
+            return false;
+        }else{
+            for (Row row : rs) { 
+                String Username = row.getString("login");    // create variable StoredPass and define as the password string
+                if (Username.compareTo(username) == 0)   // check if the password matches the encoded password
+                return true;                                      
+            }
+        }
+        return false;
+    }**/
     
     public boolean IsValidUser(String username, String Password){
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
@@ -71,28 +78,27 @@ public class User {
             System.out.println("Can't check your password");
             return false;
         }
-        Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("select password from userprofiles where login =?");
+        Session session = cluster.connect("instagrim"); // connects to the instagrim cassandra database cluster
+        
+        PreparedStatement ps = session.prepare("select password from userprofiles where login =?"); // creates a new prepared statement for the query
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         rs = session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        username));
+                        username));  // to the variable username
         if (rs.isExhausted()) {
             System.out.println("No Images returned");
             return false;
         } else {
-            for (Row row : rs) {
-               
-                String StoredPass = row.getString("password");
-                if (StoredPass.compareTo(EncodedPassword) == 0)
-                    return true;
+            for (Row row : rs) { 
+                String StoredPass = row.getString("password");    // create variable StoredPass and define as the password string
+                if (StoredPass.compareTo(EncodedPassword) == 0)   // check if the password matches the encoded password
+                    return true;                                      
             }
-        }
-   
-    
+        }   
     return false;  
     }
+    
        public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }
