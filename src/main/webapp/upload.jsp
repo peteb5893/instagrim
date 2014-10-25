@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,10 +16,15 @@
     <body>
         <h1>InstaGrim ! </h1>
         <h2>Your world in Black and White</h2>
+    <% // this code checks the loggedIn state to determine which navigation links to display.    
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        String UserName = lg.getUsername();
+    %>
         <nav>
             <ul>
-                <li class="nav"><a href="upload.jsp">Upload</a></li>
-                <li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                <li><a href="/Instagrim">Home</a></li>
+                <li><a href="upload.jsp">Upload</a></li>
+                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
             </ul>
         </nav>
  
@@ -34,7 +40,7 @@
         </article>
         <footer>
             <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
+                <li>&COPY; Andy Cobley</li>
             </ul>
         </footer>
     </body>

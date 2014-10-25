@@ -32,8 +32,7 @@
         
         <nav>
             <ul>
-
-               
+                <li><a href="/Instagrim">Home</a></li>
                 <li><a href="upload.jsp">Upload</a></li>
                     <% // this code checks the loggedIn state to determine which navigation links to display.    
                         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
@@ -57,7 +56,6 @@
         </nav>
         <footer>
             <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
                 <li>&COPY; Andy Cobley</li>
             </ul>
         </footer>

@@ -20,8 +20,8 @@
         </header>
         <nav>
             <ul>
+                <li class="nav"><a href="/Instagrim">Home</a></li>
                 
-                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
             </ul>
         </nav>
        
@@ -48,7 +48,7 @@
         </article>
         <footer>
             <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
+                <li>&COPY; Andy Cobley</li>
             </ul>
         </footer>
     </body>

@@ -27,7 +27,7 @@ public class User {
         
     }
     // this boolean method will return true if the user is added to the database
-    public boolean RegisterUser(String username, String Password, String address, String email, String first_name, String last_name){
+    public boolean RegisterUser(String username, String Password, String email, String first_name, String last_name){
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;
         try {
@@ -38,12 +38,12 @@ public class User {
         }
         Session session = cluster.connect("instagrim");
 
-            PreparedStatement ps = session.prepare("insert into userprofiles (login, addresses, email, first_name, last_name,Password) Values(?,?,?,?,?,?)");
+            PreparedStatement ps = session.prepare("insert into userprofiles (login, email, first_name, last_name, password) Values(?,?,?,?,?)");
        
             BoundStatement boundStatement = new BoundStatement(ps);
             session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        username, address, email, first_name, last_name,EncodedPassword));
+                        username, email, first_name, last_name, EncodedPassword));
             //We are assuming this always works.  Also a transaction would be good here !
         
         return true;

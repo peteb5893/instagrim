@@ -19,8 +19,7 @@
         </header>
         <nav>
             <ul>
-                
-                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                <li><a href="/Instagrim">Home</a></li>
             </ul>
         </nav>
        
@@ -30,7 +29,6 @@
                 <ul>
                     <li>User Name <input type="text" name="username"></li>
                     <li>Password <input type="password" name="password"></li>
-                    <li>Address <input type="text" name="address"></li>
                     <li>Email <input type="text" name="email"</li>
                     <li>First Name <input type="text" name="first_name" </li>
                     <li>Last Name <input type="text" name="last_name" </li>
@@ -43,7 +41,7 @@
         </article>
         <footer>
             <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
+                <li>&COPY; Andy Cobley</li>
             </ul>
         </footer>
     </body>
