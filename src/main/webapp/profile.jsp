@@ -1,7 +1,7 @@
 <%-- 
-    Document   : upload
-    Created on : Sep 22, 2014, 6:31:50 PM
-    Author     : Administrator
+    Document   : profile
+    Created on : Oct 25, 2014, 12:54:28 PM
+    Author     : peterbennington
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,12 +11,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Instagrim</title>
-        <link rel="stylesheet" type="text/css" href="Styles.css" />
+        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
     </head>
     <body>
+        <header>
+        
         <h1>InstaGrim ! </h1>
         <h2>Your world in Black and White</h2>
-    <%  //this code checks the loggedIn state to determine which navigation links to display.    
+        </header>
+        
+        <%  //this code checks the loggedIn state to determine which navigation links to display.    
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         String UserName = lg.getUsername();
     %>
@@ -27,16 +31,27 @@
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
             </ul>
         </nav>
- 
+        
         <article>
-            <h3>File Upload</h3>
-            <form method="POST" enctype="multipart/form-data" action="Image">
-                File to upload: <input type="file" accept="image/*" name="upfile"><br/>
-                <%-- By using the accept keyword, we allow only files with an image type file extension to be uploaded.--%>
-                <br/>
-                <input type="submit" value="Press"> to upload the file!
-            </form>
+            <h1>Your Profile</h1>
+        <%
+            java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
+            if (lsPics == null) {
+        %>
+        <p>No Pictures found</p>
+        <%
+        } else {
+            Iterator<Pic> iterator;
+            iterator = lsPics.iterator();
+            while (iterator.hasNext()) {
+                Pic p = (Pic) iterator.next();
 
+        %>
+        <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/><%
+
+            }
+            }
+        %>
         </article>
         <footer>
             <ul>
