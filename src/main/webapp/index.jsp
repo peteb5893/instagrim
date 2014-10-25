@@ -33,25 +33,22 @@
         <nav>
             <ul>
                 <li><a href="/Instagrim">Home</a></li>
-                <li><a href="upload.jsp">Upload</a></li>
+                <li><a href="/Instagrim/upload.jsp">Upload</a></li>
                     <% // this code checks the loggedIn state to determine which navigation links to display.    
                         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
                         if (lg != null) {
                             String UserName = lg.getUsername();
                             if (lg.getlogedin()) {
                     %>
-
+                <li><a href="/Instagrim/profile/<%=lg.getUsername()%>">Profile</a></li>
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
                 <li><a href="/Instagrim/Logout"> Logout</a></li>
                     <%}
                             }else{
                                 %>
-                 <li><a href="register.jsp">Register</a></li>
-                <li><a href="login.jsp">Login</a></li>
-                <%
-                                        
-                            
-                    }%>
+                <li><a href="/Instagrim/register.jsp">Register</a></li>
+                <li><a href="/Instagrim/login.jsp">Login</a></li>
+                <%}%>
             </ul>
         </nav>
         <footer>

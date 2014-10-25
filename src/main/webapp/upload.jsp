@@ -16,20 +16,21 @@
     <body>
         <h1>InstaGrim ! </h1>
         <h2>Your world in Black and White</h2>
-    <%  //this code checks the loggedIn state to determine which navigation links to display.    
+    <%      
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         String UserName = lg.getUsername();
     %>
         <nav>
             <ul>
                 <li><a href="/Instagrim">Home</a></li>
-                <li><a href="upload.jsp">Upload</a></li>
+                <li><a href="/Instagrim/profile/<%=lg.getUsername()%>">Profile</a></li>
+                <li><a href="/Instagrim/upload.jsp">Upload</a></li>
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
             </ul>
         </nav>
  
         <article>
-            <h3>File Upload</h3>
+            <h2>File Upload</h2>
             <form method="POST" enctype="multipart/form-data" action="Image">
                 File to upload: <input type="file" accept="image/*" name="upfile"><br/>
                 <%-- By using the accept keyword, we allow only files with an image type file extension to be uploaded.--%>

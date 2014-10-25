@@ -4,8 +4,9 @@
     Author     : peterbennington
 --%>
 
+<%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,37 +22,30 @@
         </header>
         
         <%  //this code checks the loggedIn state to determine which navigation links to display.    
-        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-        String UserName = lg.getUsername();
-    %>
+            LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+            String UserName = lg.getUsername();
+        %>
         <nav>
             <ul>
                 <li><a href="/Instagrim">Home</a></li>
-                <li><a href="upload.jsp">Upload</a></li>
+                <li><a href="/Instagrim/upload.jsp">Upload</a></li>
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/Instagrim/Logout"> Logout</a></li>
             </ul>
         </nav>
         
         <article>
             <h1>Your Profile</h1>
-        <%
-            java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
-            if (lsPics == null) {
-        %>
-        <p>No Pictures found</p>
-        <%
-        } else {
-            Iterator<Pic> iterator;
-            iterator = lsPics.iterator();
-            while (iterator.hasNext()) {
-                Pic p = (Pic) iterator.next();
-
-        %>
-        <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/><%
-
-            }
-            }
-        %>
+        
+            <%--potentially have a user profile photo here--%>
+            
+            <ul>
+                <li>Username: ${Profile.get(0)}</li>
+                <li>First Name: ${Profile.get(1)}</li>
+                <li>Last Name: ${Profile.get(2)}</li>
+                <li>Email: ${Profile.get(3)}</li>
+            </ul>
+  
         </article>
         <footer>
             <ul>

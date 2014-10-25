@@ -16,14 +16,17 @@
     </head>
     <body>
         <header>
-        
         <h1>InstaGrim ! </h1>
         <h2>Your world in Black and White</h2>
         </header>
-        
+        <%      
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        String UserName = lg.getUsername();
+        %>
         <nav>
             <ul>
                 <li><a href="/Instagrim">Home</a></li>
+                <li><a href="/Instagrim/profile/<%=lg.getUsername()%>">Profile</a></li>
                 <li><a href="/Instagrim/upload.jsp">Upload</a></li>
                 <li><a href="/Instagrim/Logout"> Logout</a></li>
             </ul>

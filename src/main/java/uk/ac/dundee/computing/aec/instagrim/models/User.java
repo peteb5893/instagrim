@@ -99,6 +99,35 @@ public class User {
     return false;  
     }
     
+    public java.util.LinkedList<String> getProfileForUser(String User) {
+        java.util.LinkedList<String> userProfile = new java.util.LinkedList<>();
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("select * from userprofiles where login =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        User));
+        if (rs.isExhausted()) {
+            System.out.println("No Profile returned");
+            return null;
+        } else {
+            for (Row row : rs)
+            {
+                String username = row.getString("login");
+                String first_name = row.getString("first_name");
+                String last_name = row.getString("last_name");
+                String email = row.getString("email");
+                
+                userProfile.add(username);
+                userProfile.add(first_name);
+                userProfile.add(last_name);
+                userProfile.add(email);
+            }
+        }
+        return userProfile;
+    }
+    
        public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }
