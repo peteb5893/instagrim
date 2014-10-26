@@ -37,8 +37,13 @@ public class User {
             return false;
         }
         Session session = cluster.connect("instagrim");
-
-            PreparedStatement ps = session.prepare("insert into userprofiles (login, email, first_name, last_name, password) Values(?,?,?,?,?)");
+        
+        if (usernameTaken(username))
+        {
+            return false;
+        }
+            
+        PreparedStatement ps = session.prepare("insert into userprofiles (login, email, first_name, last_name, password) Values(?,?,?,?,?)");
        
             BoundStatement boundStatement = new BoundStatement(ps);
             session.execute( // this is where the query is executed
@@ -49,15 +54,15 @@ public class User {
         return true;
     }
   
-    /**this boolean method will check the if the username trying to be registered is already taken
+    //this boolean method will check the if the username trying to be registered is already taken
     public boolean usernameTaken(String username){
         Session session = cluster.connect("instagrim");     
-        PreparedStatement prepState = session.prepare("select * from userprofiles where login =?");
-        BoundStatement boundState = new BoundStatement(prepState);
+        PreparedStatement ps = session.prepare("select login from userprofiles where login =?");
+        BoundStatement boundState = new BoundStatement(ps);
         ResultSet rs = null;
         rs = session.execute(boundState.bind(username));
         if (rs.isExhausted()){
-            System.out.println("test");
+            System.out.println("Username has not yet been taken.");
             return false;
         }else{
             for (Row row : rs) { 
@@ -67,7 +72,7 @@ public class User {
             }
         }
         return false;
-    }**/
+    }
     
     public boolean IsValidUser(String username, String Password){
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();

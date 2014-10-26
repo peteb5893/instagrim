@@ -54,10 +54,24 @@ public class Register extends HttpServlet {
             registerError(request, response); // display error message
         }
         
+        if (!username.equals("")&&!password.equals("")&&!email.equals("")&&!first_name.equals("")&&!last_name.equals(""))
+        {
+          
         User us=new User();
         us.setCluster(cluster);
-        us.RegisterUser(username, password, email, first_name, last_name);
         
+        if (us.RegisterUser(username, password, email, first_name, last_name))
+        {
+            RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
+            request.setAttribute("usernameCreated",username);
+	    rd.forward(request,response);
+        } else {
+
+            RequestDispatcher rd=request.getRequestDispatcher("register.jsp");
+            request.setAttribute("takenUsername",username);
+	    rd.forward(request,response);
+        }
+        }
 	response.sendRedirect("/Instagrim");
         
     }

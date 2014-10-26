@@ -22,11 +22,15 @@
         
             <%  // prints a message to screen telling the user they have successfully logged in
                 String message = (String) request.getAttribute("msg");
-                if (message==null)
+                if (message!=null)
                 {
-                     // if message is null, i.e. no user logged in yet
-                } else {
                     out.println("You are logged in as: " + message); // show user logged in
+                }
+                
+                String usernameCreated = (String) request.getAttribute("usernameCreated");
+                if (usernameCreated!=null)
+                {
+                    out.println("The username <b>"+usernameCreated+"</b> has been created.");
                 }
             %>
         
