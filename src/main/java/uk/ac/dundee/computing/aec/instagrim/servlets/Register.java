@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
@@ -25,7 +24,9 @@ import uk.ac.dundee.computing.aec.instagrim.models.User;
  */
 @WebServlet(name = "Register", urlPatterns = {"/Register"})
 public class Register extends HttpServlet {
-    Cluster cluster=null;
+
+    Cluster cluster = null;
+
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
@@ -42,46 +43,41 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username=request.getParameter("username");
-        String password=request.getParameter("password");
-        String email=request.getParameter("email");
-        String first_name=request.getParameter("first_name");
-        String last_name=request.getParameter("last_name");
-        
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        String first_name = request.getParameter("first_name");
+        String last_name = request.getParameter("last_name");
+
         //below is an if statement that will check none of the fields have been left empty
-        if (username.equals("")||password.equals("")||email.equals("")||first_name.equals("")||last_name.equals(""))
-        {
+        if (username.equals("") || password.equals("") || email.equals("") || first_name.equals("") || last_name.equals("")) {
             registerError(request, response); // display error message
         }
-        
-        if (!username.equals("")&&!password.equals("")&&!email.equals("")&&!first_name.equals("")&&!last_name.equals(""))
-        {
-          
-        User us=new User();
-        us.setCluster(cluster);
-        
-        if (us.RegisterUser(username, password, email, first_name, last_name))
-        {
-            RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
-            request.setAttribute("usernameCreated",username);
-	    rd.forward(request,response);
-        } else {
 
-            RequestDispatcher rd=request.getRequestDispatcher("register.jsp");
-            request.setAttribute("takenUsername",username);
-	    rd.forward(request,response);
+        if (!username.equals("") && !password.equals("") && !email.equals("") && !first_name.equals("") && !last_name.equals("")) {
+            User us = new User();
+            us.setCluster(cluster);
+
+            if (us.RegisterUser(username, password, email, first_name, last_name)) {
+                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+                request.setAttribute("usernameCreated", username);
+                rd.forward(request, response);
+            } else {
+
+                RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+                request.setAttribute("takenUsername", username);
+                rd.forward(request, response);
+            }
         }
-        }
-	response.sendRedirect("/Instagrim");
-        
+        response.sendRedirect("/Instagrim");
     }
 
     private void registerError(HttpServletRequest request, HttpServletResponse reponse)
-        throws ServletException, IOException {
-    String registerErrorMessage = "Error: One or more fields have not been completed. Please try again.";
-    RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
-    request.setAttribute("msg",registerErrorMessage); // here we set the "msg" attribute to have value of loginErrorMessage
-    rd.forward(request, reponse);}
-
+            throws ServletException, IOException {
+        String registerErrorMessage = "Error: One or more fields have not been completed. Please try again.";
+        RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+        request.setAttribute("msg", registerErrorMessage); // here we set the "msg" attribute to have value of loginErrorMessage
+        rd.forward(request, reponse);
+    }
 
 }

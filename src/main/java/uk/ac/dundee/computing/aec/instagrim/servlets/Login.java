@@ -70,11 +70,15 @@ public class Login extends HttpServlet {
             lg.setUsername(username);
             session.setAttribute("LoggedIn", lg);
             System.out.println("Session in servlet "+session);
-            RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
-            request.setAttribute("msg",username); //this should pass the username to index.jsp and allow it to print to screen.
-	    rd.forward(request,response);
-            
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            request.setAttribute("msg", username); //this should pass the username entered to index.jsp and allow it to print to screen.
+            rd.forward(request, response);
         }else{
+            loginError(request,response);
+            //String loginError = "Error: Incorrect Username or Password.";
+            //RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+            //request.setAttribute("loginError", loginError); //this should pass the username entered to login.jsp and allow it to print to screen.
+            //rd.forward(request, response);
             response.sendRedirect("/Instagrim/login.jsp");
         }
         
@@ -84,9 +88,9 @@ public class Login extends HttpServlet {
     //method that shows an error message on the login page when username or password is entered incorrectly or left blank
 private void loginError(HttpServletRequest request, HttpServletResponse reponse)
         throws ServletException, IOException {
-    String loginErrorMessage = "Error: Username or Password have not been entered. Please try again.";
+    String loginError = "Error: Username or Password have not been entered. Please try again.";
     RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-    request.setAttribute("msg",loginErrorMessage); // here we set the "msg" attribute to have value of loginErrorMessage
+    request.setAttribute("loginError",loginError); // here we set the "msg" attribute to have value of loginErrorMessage
     rd.forward(request, reponse);
 }
 }

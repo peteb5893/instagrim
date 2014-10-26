@@ -1,12 +1,11 @@
 <%-- 
-    Document   : UsersPics
-    Created on : Sep 24, 2014, 2:52:48 PM
-    Author     : Administrator
+    Document   : allUsers
+    Created on : Oct 26, 2014, 7:23:18 PM
+    Author     : peterbennington
 --%>
-
 <%@page import="java.util.*"%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,44 +22,48 @@
         <nav>
             <ul>
                 <li><a href="/Instagrim">Home</a></li>
-                    <% // this code checks the loggedIn state to determine which navigation links to display.    
-                        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                        if (lg != null) {
-                            String UserName = lg.getUsername();
-                            if (lg.getlogedin()) {
+                <% // this code checks the loggedIn state to determine which navigation links to display.    
+                    LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                    if (lg != null) {
+                        String UserName = lg.getUsername();
+                        if (lg.getlogedin()) {
                     %>
-                <li><a href="/Instagrim/profile/<%=lg.getUsername()%>">Profile</a></li>
                 <li><a href="/Instagrim/upload.jsp">Upload</a></li>
-                <li><a href="/Instagrim/allUsers"> All Users</a></li>
+                <li><a href="/Instagrim/profile/<%=lg.getUsername()%>">Profile</a></li>
+                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
                 <li><a href="/Instagrim/Logout"> Logout</a></li>
                     <%}
                     } else {
                     %>
                 <li><a href="/Instagrim/register.jsp">Register</a></li>
                 <li><a href="/Instagrim/login.jsp">Login</a></li>
-                    <%}%>
+                <%}%>
             </ul>
         </nav>
 
         <article>
-            <h1>Pics</h1>
+            <h1>All Users</h1>
             <%
-                LinkedList<Pic> lsPics = (LinkedList<Pic>) request.getAttribute("Pics");
-                if (lsPics == null) {
+                LinkedList<String> allUsers = (LinkedList<String>) request.getAttribute("allUsers");
+                if (allUsers == null) {
             %>
-            <p>No Pictures found</p>
+            <p>No Profiles found</p>
             <%
             } else {
-                Iterator<Pic> iterator;
-                iterator = lsPics.iterator();
+                Iterator<String> iterator;
+                iterator = allUsers.iterator();
                 while (iterator.hasNext()) {
-                    Pic p = (Pic) iterator.next();
+                    String p = (String) iterator.next();
+
             %>
-            <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/>
-                <%
-                        }
+
+            <p><a href="/Instagrim/Images/<%=p%>"><%=p%>'s Profile</a> </p>
+
+            <%
                     }
-                %>
+                }
+            %>
+
         </article>
         <footer>
             &COPY; Peter Bennington

@@ -14,31 +14,30 @@
     </head>
     <body>
         <header>
-        <h1>InstaGrim ! </h1>
-        <h2>Your world in Black and White</h2>
+            <h1>InstaGrim ! </h1>
+            <h2>Your world in Black and White</h2>
         </header>
         <nav>
             <ul>
                 <li><a href="/Instagrim">Home</a></li>
+                <li><a href="/Instagrim/login.jsp">Login</a></li>
             </ul>
         </nav>
-       
+
         <article>
-            <h3>Register as user</h3>
+            <h3>Register</h3>
             <%
                 String message = (String) request.getAttribute("msg");
-                if (message!=null)
-                {
+                if (message != null) {
                     out.println(message);
                 }
-                
+
                 String takenUsername = (String) request.getAttribute("takenUsername");
-                if (takenUsername!=null)
-                {
-                    out.println("The username <b>"+takenUsername+"</b> is already taken. Try again.");
-                }    
+                if (takenUsername != null) {
+                    out.println("The username <b>" + takenUsername + "</b> is already taken. Try again.");
+                }
             %>
-            
+
             <form method="POST"  action="Register">
                 <ul>
                     <li>User Name <input type="text" name="username"></li>
@@ -46,7 +45,7 @@
                     <li>Email <input type="text" name="email"</li>
                     <li>First Name <input type="text" name="first_name" </li>
                     <li>Last Name <input type="text" name="last_name" </li>
-                    
+
                 </ul>
                 <br/>
                 <input type="submit" value="Register"> 
@@ -54,9 +53,7 @@
 
         </article>
         <footer>
-            <ul>
-                <li>&COPY; Andy Cobley</li>
-            </ul>
+            &COPY; Peter Bennington
         </footer>
     </body>
 </html>

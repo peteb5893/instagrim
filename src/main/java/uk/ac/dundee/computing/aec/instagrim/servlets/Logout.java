@@ -64,9 +64,6 @@ public class Logout extends HttpServlet {
         RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
         request.setAttribute("msg", logOutMessage);
         rd.forward(request,response);
-        response.sendRedirect("login.jsp"); // this is the code that redirects to the login page
-        
-        //processRequest(request, response);
     }
 
     /**

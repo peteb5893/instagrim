@@ -16,41 +16,42 @@
     </head>
     <body>
         <header>
-        
-        <h1>InstaGrim ! </h1>
-        <h2>Your world in Black and White</h2>
+            <h1>InstaGrim ! </h1>
+            <h2>Your world in Black and White</h2>
         </header>
-        
-        <%  //this code checks the loggedIn state to determine which navigation links to display.    
-            LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-            String UserName = lg.getUsername();
-        %>
         <nav>
             <ul>
                 <li><a href="/Instagrim">Home</a></li>
+                    <% // this code checks the loggedIn state to determine which navigation links to display.    
+                        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                        if (lg != null) {
+                            String UserName = lg.getUsername();
+                            if (lg.getlogedin()) {
+                    %>
                 <li><a href="/Instagrim/upload.jsp">Upload</a></li>
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/Instagrim/allUsers"> All Users</a></li>
                 <li><a href="/Instagrim/Logout"> Logout</a></li>
+                    <%}
+                    } else {
+                    %>
+                <li><a href="/Instagrim/register.jsp">Register</a></li>
+                <li><a href="/Instagrim/login.jsp">Login</a></li>
+                    <%}%>
             </ul>
         </nav>
-        
+
         <article>
             <h1>Your Profile</h1>
-        
-            <%--potentially have a user profile photo here--%>
-            
             <ul>
                 <li>Username: ${Profile.get(0)}</li>
                 <li>First Name: ${Profile.get(1)}</li>
                 <li>Last Name: ${Profile.get(2)}</li>
                 <li>Email: ${Profile.get(3)}</li>
             </ul>
-  
         </article>
         <footer>
-            <ul>
-                <li>&COPY; Andy Cobley</li>
-            </ul>
+            &COPY; Peter Bennington
         </footer>
     </body>
 </html>

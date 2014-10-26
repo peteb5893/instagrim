@@ -4,6 +4,7 @@ import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.LinkedList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -21,7 +22,8 @@ import uk.ac.dundee.computing.aec.instagrim.models.User;
  */
 @WebServlet(urlPatterns = {
     "/profile",
-    "/profile/*"
+    "/profile/*",
+    "/allUsers"
 })
 
 public class profile extends HttpServlet {
@@ -32,6 +34,7 @@ public class profile extends HttpServlet {
     //these are the constructors for the class
     public profile() {
         CommandsMap.put("profile", 1);
+        CommandsMap.put("allUsers", 2);
     }
     
     public void init(ServletConfig config) throws ServletException {
@@ -74,7 +77,7 @@ public class profile extends HttpServlet {
                 DisplayProfile(args[2], request, response);
                 break;
             case 2:
-                DisplayProfileList(args[2], request, response);
+                DisplayProfileList(request, response);
                 break;
             default:
                 error("Bad Operator", response);
@@ -84,15 +87,19 @@ public class profile extends HttpServlet {
     private void DisplayProfile(String username,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     User us = new User();
     us.setCluster(cluster);
-    
-    java.util.LinkedList<String> Profile = us.getProfileForUser(username);
+    LinkedList<String> Profile = us.getProfileForUser(username);
     RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
     request.setAttribute("Profile", Profile);
     rd.forward(request, response);
     }
 
-    private void DisplayProfileList(String arg, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    
+    private void DisplayProfileList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    User us = new User();
+    us.setCluster(cluster);
+    LinkedList<String> allUsers = us.getAllUsers();
+    RequestDispatcher rd = request.getRequestDispatcher("/allUsers.jsp");
+    request.setAttribute("allUsers", allUsers);
+    rd.forward(request, response);
     }
     
     //@Override

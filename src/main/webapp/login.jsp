@@ -20,8 +20,8 @@
         </header>
         <nav>
             <ul>
-                <li class="nav"><a href="/Instagrim">Home</a></li>
-                
+                <li><a href="/Instagrim">Home</a></li>
+                <li><a href="/Instagrim/register.jsp">Register</a></li>
             </ul>
         </nav>
        
@@ -29,11 +29,15 @@
             <h3>Login</h3>
             <%
                 String message = (String) request.getAttribute("msg");
-                if (message==null)
+                if (message != null)
                 {
-                     // if message is null, i.e something entered in both fields, do nothing
-                } else {
-                    out.println(message); // else if not null, print message to screen
+                    out.println(message); 
+                }
+                
+                String loginError = (String) request.getAttribute("loginError");
+                if (loginError != null)
+                {
+                    out.println(loginError);
                 }
             %>
             <form method="POST"  action="Login">
@@ -47,9 +51,7 @@
 
         </article>
         <footer>
-            <ul>
-                <li>&COPY; Andy Cobley</li>
-            </ul>
+            &COPY; Peter Bennington
         </footer>
     </body>
 </html>

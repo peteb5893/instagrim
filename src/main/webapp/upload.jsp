@@ -14,22 +14,33 @@
         <link rel="stylesheet" type="text/css" href="Styles.css" />
     </head>
     <body>
-        <h1>InstaGrim ! </h1>
-        <h2>Your world in Black and White</h2>
-    <%      
-        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-        String UserName = lg.getUsername();
-    %>
+        <header>
+            <h1>InstaGrim ! </h1>
+            <h2>Your world in Black and White</h2>
+        </header>
         <nav>
             <ul>
                 <li><a href="/Instagrim">Home</a></li>
+                    <% // this code checks the loggedIn state to determine which navigation links to display.    
+                        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                        if (lg != null) {
+                            String UserName = lg.getUsername();
+                            if (lg.getlogedin()) {
+                    %>
                 <li><a href="/Instagrim/profile/<%=lg.getUsername()%>">Profile</a></li>
                 <li><a href="/Instagrim/upload.jsp">Upload</a></li>
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/Instagrim/allUsers"> All Users</a></li>
                 <li><a href="/Instagrim/Logout"> Logout</a></li>
+                    <%}
+                    } else {
+                    %>
+                <li><a href="/Instagrim/register.jsp">Register</a></li>
+                <li><a href="/Instagrim/login.jsp">Login</a></li>
+                    <%}%>
             </ul>
         </nav>
- 
+
         <article>
             <h2>File Upload</h2>
             <form method="POST" enctype="multipart/form-data" action="Image">
@@ -41,9 +52,7 @@
 
         </article>
         <footer>
-            <ul>
-                <li>&COPY; Andy Cobley</li>
-            </ul>
+            &COPY; Peter Bennington
         </footer>
     </body>
 </html>
