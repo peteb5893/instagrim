@@ -7,6 +7,7 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,6 +60,10 @@ public class Logout extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getSession().invalidate();  // this is the code that invalidates the session, causing the logout
+        String logOutMessage = "You have been successfully logged out.";
+        RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
+        request.setAttribute("msg", logOutMessage);
+        rd.forward(request,response);
         response.sendRedirect("login.jsp"); // this is the code that redirects to the login page
         
         //processRequest(request, response);
