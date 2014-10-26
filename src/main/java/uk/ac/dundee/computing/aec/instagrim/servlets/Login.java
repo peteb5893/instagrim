@@ -80,15 +80,6 @@ public class Login extends HttpServlet {
         
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
     //method that shows an error message on the login page when username or password is entered incorrectly or left blank
 private void loginError(HttpServletRequest request, HttpServletResponse reponse)

@@ -20,7 +20,7 @@
             <h2>Your world in Black and White</h2>
         </header>
         
-        <%      // prints a message to screen telling the user they have successfully logged in
+            <%  // prints a message to screen telling the user they have successfully logged in
                 String message = (String) request.getAttribute("msg");
                 if (message==null)
                 {

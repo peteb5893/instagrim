@@ -31,9 +31,6 @@ public class Register extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
 
-
-
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -51,6 +48,12 @@ public class Register extends HttpServlet {
         String first_name=request.getParameter("first_name");
         String last_name=request.getParameter("last_name");
         
+        //below is an if statement that will check none of the fields have been left empty
+        if (username.equals("")||password.equals("")||email.equals("")||first_name.equals("")||last_name.equals(""))
+        {
+            registerError(request, response); // display error message
+        }
+        
         User us=new User();
         us.setCluster(cluster);
         us.RegisterUser(username, password, email, first_name, last_name);
@@ -59,14 +62,12 @@ public class Register extends HttpServlet {
         
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    private void registerError(HttpServletRequest request, HttpServletResponse reponse)
+        throws ServletException, IOException {
+    String registerErrorMessage = "Error: One or more fields have not been completed. Please try again.";
+    RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+    request.setAttribute("msg",registerErrorMessage); // here we set the "msg" attribute to have value of loginErrorMessage
+    rd.forward(request, reponse);}
+
 
 }

@@ -58,7 +58,6 @@ public class Logout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         request.getSession().invalidate();  // this is the code that invalidates the session, causing the logout
         response.sendRedirect("login.jsp"); // this is the code that redirects to the login page
         
