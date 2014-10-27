@@ -25,7 +25,7 @@
         </nav>
 
         <article>
-            <h3>Register</h3>
+            <h3 style = "text-align:left;">Register</h3>
             <%
                 String message = (String) request.getAttribute("msg");
                 if (message != null) {

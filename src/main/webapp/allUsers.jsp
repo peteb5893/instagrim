@@ -42,7 +42,7 @@
         </nav>
 
         <article>
-            <h1>All Users</h1>
+            <h1 style = "text-align:left;">All Users</h1>
             <%
                 LinkedList<String> allUsers = (LinkedList<String>) request.getAttribute("allUsers");
                 if (allUsers == null) {

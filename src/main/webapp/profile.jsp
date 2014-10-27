@@ -41,13 +41,13 @@
             </ul>
         </nav>
 
-        <article>
-            <h1>Your Profile</h1>
+        <article style = "text-align: left;">
+            <h1 style = "text-align:left;">Your Profile</h1>
             <ul>
-                <li>Username: ${Profile.get(0)}</li>
-                <li>First Name: ${Profile.get(1)}</li>
-                <li>Last Name: ${Profile.get(2)}</li>
-                <li>Email: ${Profile.get(3)}</li>
+                <li>Username:${Profile.get(0)}</li>
+                <li>First Name:${Profile.get(1)}</li>
+                <li>Last Name:${Profile.get(2)}</li>
+                <li>Email:${Profile.get(3)}</li>
             </ul>
         </article>
         <footer>

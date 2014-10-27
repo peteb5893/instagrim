@@ -30,7 +30,6 @@ public class User {
     }
 
     // this boolean method will return true if the user is added to the database
-
     public boolean RegisterUser(String username, String Password, String email, String first_name, String last_name) {
         AeSimpleSHA1 sha1handler = new AeSimpleSHA1();
         String EncodedPassword = null;
@@ -52,7 +51,7 @@ public class User {
         session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
                         username, email, first_name, last_name, EncodedPassword));
-            //We are assuming this always works.  Also a transaction would be good here !
+        //We are assuming this always works.  Also a transaction would be good here !
 
         return true;
     }
@@ -78,7 +77,6 @@ public class User {
         }
         return false;
     }
-    
 
     public boolean IsValidUser(String username, String Password) {
         AeSimpleSHA1 sha1handler = new AeSimpleSHA1();
@@ -139,7 +137,7 @@ public class User {
         }
         return userProfile;
     }
-    
+
     public LinkedList<String> getAllUsers() {
         LinkedList<String> allUsers = new LinkedList<>();
         Session session = cluster.connect("instagrim");
@@ -148,7 +146,7 @@ public class User {
         BoundStatement boundStatement = new BoundStatement(ps);
         rs = session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        ));
+                ));
         if (rs.isExhausted()) {
             System.out.println("No Users returned");
             return null;
@@ -156,7 +154,7 @@ public class User {
             for (Row row : rs) {
                 String username = row.getString("login");
                 System.out.println("username " + username);
-                allUsers.add(username);      
+                allUsers.add(username);
             }
         }
         return allUsers;

@@ -43,7 +43,7 @@
         </nav>
 
         <article>
-            <h1>Pics</h1>
+            <h1 style = "text-align:left;">Pics</h1>
             <%
                 LinkedList<Pic> lsPics = (LinkedList<Pic>) request.getAttribute("Pics");
                 if (lsPics == null) {
