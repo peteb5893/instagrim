@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package uk.ac.dundee.computing.aec.instagrim.servlets;
+package uk.ac.dundee.computing.aec.InstagrimPJB.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
@@ -18,9 +18,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.models.User;
-import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
+import uk.ac.dundee.computing.aec.InstagrimPJB.lib.CassandraHosts;
+import uk.ac.dundee.computing.aec.InstagrimPJB.models.User;
+import uk.ac.dundee.computing.aec.InstagrimPJB.stores.LoggedIn;
 
 /**
  *
@@ -79,7 +79,7 @@ public class Login extends HttpServlet {
             //RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
             //request.setAttribute("loginError", loginError); //this should pass the username entered to login.jsp and allow it to print to screen.
             //rd.forward(request, response);
-            response.sendRedirect("/Instagrim/login.jsp");
+            response.sendRedirect("/InstagrimPJB/login.jsp");
         }
         
     }

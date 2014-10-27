@@ -9,18 +9,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Instagrim</title>
+        <title>InstagrimPJB</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
     </head>
     <body>
         <header>
-            <h1>InstaGrim ! </h1>
+            <h1>InstagrimPJB ! </h1>
             <h2>Your world in Black and White</h2>
         </header>
         <nav>
             <ul>
-                <li><a href="/Instagrim">Home</a></li>
-                <li><a href="/Instagrim/login.jsp">Login</a></li>
+                <li><a href="/InstagrimPJB">Home</a></li>
+                <li><a href="/InstagrimPJB/login.jsp">Login</a></li>
             </ul>
         </nav>
 

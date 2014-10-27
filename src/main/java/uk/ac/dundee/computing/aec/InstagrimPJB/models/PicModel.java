@@ -1,4 +1,4 @@
-package uk.ac.dundee.computing.aec.instagrim.models;
+package uk.ac.dundee.computing.aec.InstagrimPJB.models;
 
 /*
  * Expects a cassandra columnfamily defined as
@@ -35,8 +35,8 @@ import javax.imageio.ImageIO;
 import static org.imgscalr.Scalr.*;
 import org.imgscalr.Scalr.Method;
 
-import uk.ac.dundee.computing.aec.instagrim.lib.*;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
+import uk.ac.dundee.computing.aec.InstagrimPJB.lib.*;
+import uk.ac.dundee.computing.aec.InstagrimPJB.stores.Pic;
 //import uk.ac.dundee.computing.aec.stores.TweetStore;
 
 public class PicModel {
@@ -61,8 +61,8 @@ public class PicModel {
             java.util.UUID picid = convertor.getTimeUUID();
 
             //The following is a quick and dirty way of doing this, will fill the disk quickly !
-            Boolean success = (new File("/var/tmp/instagrim/")).mkdirs();
-            FileOutputStream output = new FileOutputStream(new File("/var/tmp/instagrim/" + picid));
+            Boolean success = (new File("/var/tmp/InstagrimPJB/")).mkdirs();
+            FileOutputStream output = new FileOutputStream(new File("/var/tmp/InstagrimPJB/" + picid));
 
             output.write(b);
             byte[] thumbb = picresize(picid.toString(), types[1]);
@@ -71,7 +71,7 @@ public class PicModel {
             byte[] processedb = picdecolour(picid.toString(), types[1]);
             ByteBuffer processedbuf = ByteBuffer.wrap(processedb);
             int processedlength = processedb.length;
-            Session session = cluster.connect("instagrim");
+            Session session = cluster.connect("InstagrimPJB");
 
             PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
             PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, pic_added) values(?,?,?)");
@@ -90,7 +90,7 @@ public class PicModel {
 
     public byte[] picresize(String picid, String type) {
         try {
-            BufferedImage BI = ImageIO.read(new File("/var/tmp/instagrim/" + picid));
+            BufferedImage BI = ImageIO.read(new File("/var/tmp/InstagrimPJB/" + picid));
             BufferedImage thumbnail = createThumbnail(BI);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(thumbnail, type, baos);
@@ -107,7 +107,7 @@ public class PicModel {
 
     public byte[] picdecolour(String picid, String type) {
         try {
-            BufferedImage BI = ImageIO.read(new File("/var/tmp/instagrim/" + picid));
+            BufferedImage BI = ImageIO.read(new File("/var/tmp/InstagrimPJB/" + picid));
             BufferedImage processed = createProcessed(BI);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(processed, type, baos);
@@ -135,7 +135,7 @@ public class PicModel {
 
     public LinkedList<Pic> getPicsForUser(String User) {
         LinkedList<Pic> Pics = new LinkedList<>();
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("InstagrimPJB");
         PreparedStatement ps = session.prepare("select picid from userpiclist where user =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
@@ -158,7 +158,7 @@ public class PicModel {
     }
 
     public Pic getPic(int image_type, java.util.UUID picid) {
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("InstagrimPJB");
         ByteBuffer bImage = null;
         String type = null;
         int length = 0;

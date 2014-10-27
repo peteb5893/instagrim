@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uk.ac.dundee.computing.aec.instagrim.models;
+package uk.ac.dundee.computing.aec.InstagrimPJB.models;
 
 import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.Cluster;
@@ -14,8 +14,8 @@ import com.datastax.driver.core.Session;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
-import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
+import uk.ac.dundee.computing.aec.InstagrimPJB.lib.AeSimpleSHA1;
+import uk.ac.dundee.computing.aec.InstagrimPJB.stores.Pic;
 
 /**
  *
@@ -39,7 +39,7 @@ public class User {
             System.out.println("Can't check your password");
             return false;
         }
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("InstagrimPJB");
 
         if (usernameTaken(username)) {
             return false;
@@ -58,7 +58,7 @@ public class User {
 
     //this boolean method will check the if the username trying to be registered is already taken
     public boolean usernameTaken(String username) {
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("InstagrimPJB");
         PreparedStatement ps = session.prepare("select login from userprofiles where login =?");
         BoundStatement boundState = new BoundStatement(ps);
         ResultSet rs = null;
@@ -87,7 +87,7 @@ public class User {
             System.out.println("Can't check your password");
             return false;
         }
-        Session session = cluster.connect("instagrim"); // connects to the instagrim cassandra database cluster
+        Session session = cluster.connect("InstagrimPJB"); // connects to the InstagrimPJB cassandra database cluster
 
         PreparedStatement ps = session.prepare("select password from userprofiles where login =?"); // creates a new prepared statement for the query
         ResultSet rs = null;
@@ -112,7 +112,7 @@ public class User {
 
     public LinkedList<String> getProfileForUser(String User) {
         LinkedList<String> userProfile = new LinkedList<>();
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("InstagrimPJB");
         PreparedStatement ps = session.prepare("select * from userprofiles where login =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
@@ -140,7 +140,7 @@ public class User {
 
     public LinkedList<String> getAllUsers() {
         LinkedList<String> allUsers = new LinkedList<>();
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("InstagrimPJB");
         PreparedStatement ps = session.prepare("select login from userprofiles");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);

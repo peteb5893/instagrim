@@ -4,39 +4,39 @@
     Author     : peterbennington
 --%>
 <%@page import="java.util.*"%>
-<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*"%>
+<%@page import="uk.ac.dundee.computing.aec.InstagrimPJB.stores.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Instagrim</title>
-        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
+        <title>InstagrimPJB</title>
+        <link rel="stylesheet" type="text/css" href="/InstagrimPJB/Styles.css" />
     </head>
     <body>
         <header>
-            <h1>InstaGrim ! </h1>
+            <h1>InstagrimPJB ! </h1>
             <h2>Your world in Black and White</h2>
         </header>
 
         <nav>
             <ul>
-                <li><a href="/Instagrim">Home</a></li>
+                <li><a href="/InstagrimPJB">Home</a></li>
                 <% // this code checks the loggedIn state to determine which navigation links to display.    
                     LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
                     if (lg != null) {
                         String UserName = lg.getUsername();
                         if (lg.getlogedin()) {
                     %>
-                <li><a href="/Instagrim/upload.jsp">Upload</a></li>
-                <li><a href="/Instagrim/profile/<%=lg.getUsername()%>">Profile</a></li>
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                <li><a href="/Instagrim/Logout"> Logout</a></li>
+                <li><a href="/InstagrimPJB/upload.jsp">Upload</a></li>
+                <li><a href="/InstagrimPJB/profile/<%=lg.getUsername()%>">Profile</a></li>
+                <li><a href="/InstagrimPJB/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/InstagrimPJB/Logout"> Logout</a></li>
                     <%}
                     } else {
                     %>
-                <li><a href="/Instagrim/register.jsp">Register</a></li>
-                <li><a href="/Instagrim/login.jsp">Login</a></li>
+                <li><a href="/InstagrimPJB/register.jsp">Register</a></li>
+                <li><a href="/InstagrimPJB/login.jsp">Login</a></li>
                 <%}%>
             </ul>
         </nav>
@@ -57,7 +57,7 @@
 
             %>
 
-            <p><a href="/Instagrim/Images/<%=p%>"><%=p%>'s Profile</a> </p>
+            <p><a href="/InstagrimPJB/Images/<%=p%>"><%=p%>'s Profile</a> </p>
 
             <%
                     }
