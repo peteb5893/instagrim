@@ -42,7 +42,7 @@
         </nav>
 
         <article>
-            <h2>File Upload</h2>
+            <h2 style = "text-align:left;">File Upload</h2>
             <form method="POST" enctype="multipart/form-data" action="Image">
                 File to upload: <input type="file" accept="image/*" name="upfile"><br/>
                 <%-- By using the accept keyword, we allow only files with an image type file extension to be uploaded.--%>

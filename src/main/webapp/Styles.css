@@ -14,3 +14,31 @@ nav {
     border: 2px;
     float: right;
 }
+
+header {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+article {
+    position: absolute;
+    left: 20px;
+    top: 120px;
+    text-align: right;
+}
+
+footer{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+hgroup{
+    text-align: left;
+}
+
+ul{
+  list-style-type: none;
+
+}

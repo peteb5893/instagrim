@@ -19,11 +19,10 @@
             <h1>InstaGrim ! </h1>
             <h2>Your world in Black and White</h2>
         </header>
-
         <%  // prints a message to screen telling the user they have successfully logged in
             String message = (String) request.getAttribute("msg");
             if (message != null) {
-                out.println("You are logged in as: " + message); // show user logged in
+                out.println("You are logged in as: <b>" + message + "</b>"); // show user logged in
             }
 
             String usernameCreated = (String) request.getAttribute("usernameCreated");
@@ -32,6 +31,13 @@
             }
         %>
 
+        <article>
+            <h3> Welcome to my Instagrim Project.</h3>
+            <p>
+                This is a web application with a backend Cassandra database.
+            </p>
+        </article>
+        
         <nav>
             <ul>
                 <li><a href="/Instagrim">Home</a></li>
